@@ -1,0 +1,18 @@
+{
+  "name": "quadro",
+  "version": "0.1.0",
+  "description": "Per-tenant feature gating that a billing tier seeds but does not govern.",
+  "license": "MIT",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "db:migrate": "bun run src/cli/migrate.ts",
+    "check": "tsc --noEmit",
+    "test": "bun test",
+    "demo": "bun run src/cli/demo.ts"
+  },
+  "dependencies": { "postgres": "^3.4.5" },
+  "devDependencies": { "@types/bun": "^1.2.0", "typescript": "^5.7.0" }
+}

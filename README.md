@@ -29,12 +29,12 @@ restructuring first.
 | 3 | **WhatsApp Cloud API commerce** | Italian agencies & SMEs | Write-up (EN + IT) + Loom | **Written** · Loom to record |
 | 4 | **Self-hosted infra runbook** | Founders with Vercel bill shock | Runbook + cost table + demo | **Built · runs** · prices to fill |
 | 5 | **AI menu ingestion** | Agencies wanting AI that isn't a chatbot | Repo + Loom | **Built · runs** · Loom to record |
-| 6 | **Entitlements & feature gating** | Agencies selling tiered client capabilities | Repo | **Not started** — the last code cut |
+| 6 | **Entitlements & feature gating** | Agencies selling tiered client capabilities | Repo | **Built · runs** |
 | 7 | **Observability on Bun** | Same buyer as #4 | Write-up | **Written** |
 | 8 | **Italian compliance** | Italian SMEs & their commercialista | Write-up (IT + EN) | **Written** |
 | 9 | **Agentic delivery harness** | Nobody, directly — a call asset | Write-up | **Written** |
 
-Eight of nine done. Remaining: cut 6 (code), three Looms, and the cost figures.
+**All nine done.** Remaining before publishing: three Looms, and the `COSTS.md` figures.
 
 ## What each cut actually is
 
@@ -81,13 +81,26 @@ misconfigured primary provider falls through to the fallback **silently**, so yo
 get confidently wrong output instead of an error — a fallback chain is a
 correctness bug wearing a resilience costume.
 
-### Cut 6 — Entitlements & feature gating — **NOT STARTED**
+### Cut 6 — Entitlements & feature gating — **BUILT** (`cut-06-entitlements/`)
+`quadro` — the switchboard. Built on cut 1's tenant scaffolding, so the family is
+visible: `condominio` answers *can A see B's data*, `quadro` answers *what has A
+got switched on*.
+
 The two-facts model: global **maturity** (advisory) vs per-tenant **enablement**
-(runtime truth). A tier change seeds flags — including writing `false` on downgrade
-— and then nothing re-writes them: renewals, payment failures, cancellations and
-redelivered webhooks all leave manual flips alone. The tier→feature map lives in
-Stripe Entitlements, so changing what a tier grants is a dashboard attach, not a
-deploy. This is the half of multi-tenancy that isn't isolation.
+(runtime truth, one field). A tier change seeds flags — including an explicit
+`false` on downgrade, which is what actually withdraws a paid feature — and then
+nothing re-writes them: renewals, payment failures, cancellations and redelivered
+webhooks are all no-ops. The tier→feature map lives in the billing dashboard
+(entitlement `lookup_key` == flag key), so changing what a tier grants needs no
+deploy.
+
+Two things it enforces mechanically: **baseline capability is ungoverned**, so no
+downgrade can close a shop; and **every flag must name the file that reads it**,
+tested in both directions — the cure for two flags we shipped that were live,
+flippable, and read by nothing for months.
+
+`bun run demo` walks seven subscription events and shows which three change
+anything. 30 tests, tsc clean, green from a fresh volume.
 
 ### Cut 7 — Observability on Bun — **WRITTEN** (`cut-07-observability/`)
 OpenTelemetry + Grafana provisioning against a runtime that isn't Node. Honest
