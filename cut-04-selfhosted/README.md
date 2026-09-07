@@ -12,7 +12,7 @@ runbook cannot:
 | | |
 |---|---|
 | **[`FAILURES.md`](FAILURES.md)** | Eight production failure modes, seven of them silent. **Read this one first.** |
-| **[`COSTS.md`](COSTS.md)** | The cost model, including the line most comparisons omit |
+| **[`COSTS.md`](COSTS.md)** | One real invoice against a priced managed basket — plus the line most comparisons omit |
 | **[`compose/`](compose/)** | A runnable reduction of the routing model — `docker compose up`, then `./verify.sh` |
 
 ---
