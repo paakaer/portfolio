@@ -1,0 +1,25 @@
+{
+  "name": "condominio",
+  "version": "0.1.0",
+  "description": "Shared-schema multi-tenancy for Postgres, done fail-closed.",
+  "license": "MIT",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "db:migrate": "bun run src/cli/migrate.ts",
+    "test": "bun test",
+    "check": "tsc --noEmit",
+    "demo:up": "bun run src/cli/provision.ts",
+    "demo:serve": "bun run src/demo/server.ts",
+    "demo:probe": "bun run src/cli/probe.ts"
+  },
+  "dependencies": {
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.7.0"
+  }
+}

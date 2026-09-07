@@ -1,0 +1,31 @@
+# Postgres 18 — required for native uuidv7().
+services:
+  # NOTE the deliberately unique service name. A service called `postgres` on a
+  # shared/overlay network can collide with another Postgres of the same name and
+  # DNS will round-robin between them. See the `current_database()` guard in
+  # src/infrastructure/migration-runner.ts.
+  condominio-db:
+    image: postgres:18-alpine
+    container_name: condominio-db
+    environment:
+      POSTGRES_USER: condo_owner
+      POSTGRES_PASSWORD: condo_owner_pw
+      POSTGRES_DB: condominio
+    ports:
+      - '5544:5432'
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      # POSTGRES 18 CHANGED THIS. The image now stores data in a
+      # major-version-specific subdirectory, so the mount goes at
+      # /var/lib/postgresql — NOT /var/lib/postgresql/data as it did through 17.
+      # Mounting the old path makes the container exit 1 on first boot with a wall
+      # of text about pg_ctlcluster. Copying a pre-18 compose file is how you meet it.
+      - condominio-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U condo_owner -d condominio']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  condominio-data:

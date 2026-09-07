@@ -1,0 +1,117 @@
+# A runnable reduction of the production routing model.
+#
+# It proves four things you can watch happen, rather than read about:
+#   1. Wildcard host routing  — any <slug>.localhost reaches `web`, with no per-host config
+#   2. Priority disambiguation — api.localhost reaches `api` instead, and why it must
+#   3. Memory caps            — every service capped, so the kernel never chooses
+#   4. Real healthchecks      — a check that can actually go unhealthy
+#
+# Bring it up:   docker compose up -d --wait
+# Prove it:      ./verify.sh
+# Tear it down:  docker compose down -v
+
+services:
+  traefik:
+    # v3.6+ IS REQUIRED. v3.5's Docker provider cannot negotiate with newer Docker
+    # daemons (Desktop >= 4.78 / API 1.54): discovery gets 400 Bad Request, it finds
+    # ZERO containers, and every route 404s — without logging anything that sounds
+    # like an error. See FAILURES.md #4.
+    image: traefik:v3.6
+    restart: unless-stopped
+    mem_limit: 256m
+    command:
+      - --providers.docker=true
+      # Opt-in routing. Without this every container with an exposed port gets a
+      # route, including ones you did not mean to publish.
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --api.dashboard=true
+      - --api.insecure=true # LOCAL ONLY. Never on a public host.
+      - --log.level=INFO
+      - --ping=true
+    ports:
+      - '8088:80'
+      - '8089:8080' # dashboard
+    volumes:
+      # Read-only. The Docker socket is root-equivalent on the host; a proxy with
+      # write access to it is a container escape waiting for a CVE.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # The catch-all. In production this is the multi-tenant web app: ONE container
+  # serving every tenant, resolving the tenant from the Host header at request time.
+  # Onboarding a tenant adds a DNS record and a database row — no routing change.
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    # Capped because the kernel's OOM killer picks its victim by score ACROSS THE
+    # HOST. An uncapped service does not fail alone — it can get the database killed
+    # instead. FAILURES.md #1.
+    mem_limit: 512m
+    configs:
+      - source: web_conf
+        target: /etc/nginx/conf.d/default.conf
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1/']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.web.loadbalancer.server.port=80
+      # Bare `localhost` plus ANY <slug>.localhost. Traefik v3 uses Go's RE2, which
+      # has NO negative lookahead — so this regex cannot exclude `api`. That is why
+      # the api router below wins on PRIORITY instead. Anchored deliberately: an
+      # unanchored host regex in a multi-tenant proxy matches more than you think.
+      - "traefik.http.routers.web.rule=Host(`localhost`) || HostRegexp(`^[a-z0-9-]+\\.localhost$`)"
+      - traefik.http.routers.web.entrypoints=web
+
+  # A specific host that would otherwise be swallowed by the wildcard above.
+  api:
+    image: nginx:alpine
+    restart: unless-stopped
+    mem_limit: 256m
+    configs:
+      - source: api_conf
+        target: /etc/nginx/conf.d/default.conf
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1/']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.api.loadbalancer.server.port=80
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - traefik.http.routers.api.entrypoints=web
+      # THE LINE THAT MAKES IT WORK. Both routers match api.localhost. Traefik breaks
+      # the tie by rule length, which is NOT what you want to depend on — state the
+      # priority explicitly and the behaviour stops being incidental.
+      - traefik.http.routers.api.priority=100
+
+configs:
+  # NOTE THE $$. Compose interpolates `configs.content` BEFORE the container sees it,
+  # so a bare `$host` is consumed here and nginx receives an empty string. This file
+  # shipped with that bug until verify.sh printed a blank Host line. FAILURES.md #5.
+  web_conf:
+    content: |
+      server {
+        listen 80;
+        location / {
+          add_header Content-Type text/plain;
+          return 200 "web container\nHost: $$host\nrouted by: wildcard HostRegexp\n";
+        }
+      }
+  api_conf:
+    content: |
+      server {
+        listen 80;
+        location / {
+          add_header Content-Type text/plain;
+          return 200 "api container\nHost: $$host\nrouted by: exact Host + priority=100\n";
+        }
+      }

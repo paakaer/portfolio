@@ -1,0 +1,21 @@
+{
+  "name": "carta",
+  "version": "0.1.0",
+  "description": "Paper menus into structured data, with a human in the loop.",
+  "license": "MIT",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "bun test",
+    "demo:ingest": "bun run src/cli/ingest.ts",
+    "demo:review": "bun run src/cli/review.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.0",
+    "typescript": "^5.7.0"
+  }
+}
