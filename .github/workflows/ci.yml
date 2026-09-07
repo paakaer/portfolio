@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+# One in-flight run per ref. A superseded run tells you nothing.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.cut }}
+    runs-on: ubuntu-latest
+    strategy:
+      # Every cut reports independently. One red cut must not hide the others.
+      fail-fast: false
+      matrix:
+        include:
+          - cut: cut-01-multitenant
+            database: true
+          - cut: cut-05-menu-ingestion
+            database: false
+          - cut: cut-06-entitlements
+            database: true
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.cut }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      # NOT a `services:` container. The three-role split (owner / app NOBYPASSRLS /
+      # platform BYPASSRLS) is created by db/init/*.sql, which the container runs on
+      # first boot from a mounted directory — and a service container starts before
+      # the repo is checked out, so it has nothing to mount. Running the cut's own
+      # compose file also means CI executes the exact command the README gives a
+      # reader, on the exact port its env defaults expect. If compose drifts, CI
+      # fails with it, which is the point.
+      - name: Start Postgres 18
+        if: matrix.database
+        run: docker compose up -d --wait
+
+      - name: Typecheck
+        run: bun run check
+
+      # Tests run their own migrations in beforeAll.
+      - name: Test
+        run: bun test
+
+      - name: Stop Postgres
+        if: always() && matrix.database
+        run: docker compose down -v
