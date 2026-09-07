@@ -204,6 +204,17 @@ unplanned incident and a restore rehearsal can eat a month's saving at a
 consultant's rate. The saving is real and it is roughly 8–9×, but it is a saving on
 *infrastructure* and it is paid for in *attention*.
 
+**But the break-even is per stack, and most of what sits above it is not.** Those are
+the *marginal* hours on one stack, and they are dominated by a cost paid once: knowing
+that a 404 is a stale `TRAEFIK_WEB_TARGET` and not a DNS problem, having rehearsed the
+restore before you needed it, tracking when the proxy and Postgres want upgrading.
+That knowledge is what `FAILURES.md` is — and it transfers whole to the next stack
+built on the same pattern, because the incidents are the same incidents. The second
+stack costs a fraction of the first and the fifth costs a fraction of the second, so
+the useful question is not *self-host or don't* but **who owns it**: at a founder's
+€80/h with one stack, this table often favours managed; for someone running several on
+one playbook, the €114–133 repeats per stack while the operator hours barely move.
+
 The honest recommendation: **self-hosting saves money when someone is going to own
 it.** If nobody owns it, you have not cut costs, you have deferred them into an
 incident.
