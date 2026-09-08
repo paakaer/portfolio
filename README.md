@@ -3,6 +3,10 @@
 I design and run a production multi-tenant SaaS — Postgres, Bun, TypeScript, self-hosted —
 and these are nine cuts of it. Each directory stands on its own.
 
+I take subcontracted backend and infrastructure work from design-led agencies in DACH
+and northern Italy building in Next.js and TypeScript. I also work with SMEs that need
+compliance automation or AI features running in production without an in-house team.
+
 [![CI](https://github.com/paakaer/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/paakaer/portfolio/actions/workflows/ci.yml)
 
 | # | Cut | |
