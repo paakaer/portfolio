@@ -36,3 +36,9 @@ Cuts 1, 5 and 6 are runnable repositories — `bun install && bun test`, with
 and a `verify.sh`. The rest are write-ups; cuts 3 and 8 are also in Italian.
 
 MIT licensed.
+
+## Contact
+
+- Email — `<email>`
+- Malt — `<Malt profile URL>`
+- Freelancermap — `<Freelancermap profile URL>`
