@@ -21,6 +21,16 @@ compliance automation or AI features running in production without an in-house t
 | 8 | [**Italian compliance**](cut-08-italian-compliance/) | What an Italian business can lawfully send, to whom, and how to model consent so it survives an audit. |
 | 9 | [**Agentic delivery harness**](cut-09-agentic-delivery/) | How one person ships and operates the whole system: a milestone in, one reviewable branch out. |
 
+## Start here, depending on who you are
+
+- **[Agency tech lead](storefronts/agency-subcontracting.md)** — subcontracting the
+  backend or the infrastructure of a client build.
+- **[Compliance pressure from your clients](storefronts/compliance-automation.md)** —
+  questionnaires about what you store and who can reach it.
+  *[Versione italiana](storefronts/compliance-automation.it.md).*
+- **[An LLM prototype that has to run in production](storefronts/ai-in-production.md)** —
+  the demo works; the gates, the telemetry and the running cost do not exist yet.
+
 Cuts 1, 5 and 6 are runnable repositories — `bun install && bun test`, with
 `bun run db:up` first where a database is needed. Cut 4 ships a compose reduction
 and a `verify.sh`. The rest are write-ups; cuts 3 and 8 are also in Italian.
