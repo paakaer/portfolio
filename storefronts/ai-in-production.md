@@ -14,6 +14,20 @@ system that made the error. Runs offline with no API key: 37 tests. It also
 documents the bug worth your time: a misconfigured credential silently escalated to
 the fallback and degraded output for weeks. Configuration errors now abort.
 
+**[Cut 10 — WhatsApp ordering agent](../cut-10-whatsapp-agent/)** · runnable.
+An agent that takes real orders by tool calling. Every price comes from the
+database, never the model; a quote is bound to the cart and must be accepted in a
+later message; allergies, complaints and loops go to a person. 88 tests run
+offline; behavioural evals against the live model check the database, not the
+wording.
+
+**[Cut 11 — Handwritten pages to data](../cut-11-document-pipeline/)** · runnable, Python.
+A FastAPI service reads photographed order-book pages into typed records, and a
+React screen lets a person check and approve them. Accuracy and cost per page are
+measured on every model. The first eval found dish-list errors on every model. Reading
+them showed a missing input, not a weak model: given the shop's menu, Haiku reaches
+100% on the test set at €0.93 per 1,000 pages, a thirtieth of Opus's cost.
+
 **[Cut 7 — Observability](../cut-07-observability/)** — instrument against
 OpenTelemetry, not a vendor SDK, so changing where telemetry goes is an
 environment variable. Includes the alert rules that stayed green

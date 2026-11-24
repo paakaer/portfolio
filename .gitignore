@@ -3,3 +3,6 @@ node_modules/
 *.log
 .drafts/
 .DS_Store
+
+# Each cut is its own git repository.
+cut-*/

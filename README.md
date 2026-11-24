@@ -1,13 +1,11 @@
 # Portfolio
 
 I design and run a production multi-tenant SaaS — Postgres, Bun, TypeScript, self-hosted —
-and these are nine cuts of it. Each directory stands on its own.
+and these are cuts of it. Each directory is its own repository and stands on its own.
 
 I take subcontracted backend and infrastructure work from design-led agencies in DACH
 and northern Italy building in Next.js and TypeScript. I also work with SMEs that need
 compliance automation or AI features running in production without an in-house team.
-
-[![CI](https://github.com/paakaer/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/paakaer/portfolio/actions/workflows/ci.yml)
 
 | # | Cut | |
 |---|-----|---|
@@ -20,6 +18,8 @@ compliance automation or AI features running in production without an in-house t
 | 7 | [**Observability on Bun**](cut-07-observability/) | OpenTelemetry against a runtime that isn't Node, and the alerts that were green because they queried nothing. |
 | 8 | [**Italian compliance**](cut-08-italian-compliance/) | What an Italian business can lawfully send, to whom, and how to model consent so it survives an audit. |
 | 9 | [**Agentic delivery harness**](cut-09-agentic-delivery/) | How one person ships and operates the whole system: a milestone in, one reviewable branch out. |
+| 10 | [**WhatsApp ordering agent**](cut-10-whatsapp-agent/) | Claude takes orders over tools on the real commerce schema: it never prices anything, can't confirm for the customer, and hands off to a person. |
+| 11 | [**Handwritten pages to data**](cut-11-document-pipeline/) | Python, FastAPI and React: photographed order-book pages become checked records, with accuracy and cost per page measured for each model. |
 
 ## Start here, depending on who you are
 
@@ -31,8 +31,9 @@ compliance automation or AI features running in production without an in-house t
 - **[An LLM prototype that has to run in production](storefronts/ai-in-production.md)** —
   the demo works; the gates, the telemetry and the running cost do not exist yet.
 
-Cuts 1, 5 and 6 are runnable repositories — `bun install && bun test`, with
-`bun run db:up` first where a database is needed. Cut 4 ships a compose reduction
+Cuts 1, 5, 6 and 10 are runnable repositories — `bun install && bun test`, with
+`bun run db:up` first where a database is needed. Cut 11 is Python: `uv sync && uv run pytest`
+in its `backend/`. Cut 4 ships a compose reduction
 and a `verify.sh`. The rest are write-ups; cuts 3 and 8 are also in Italian.
 
 MIT licensed.
