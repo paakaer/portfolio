@@ -5,7 +5,7 @@ what tells you it went wrong, and what it costs to run daily.
 
 ## Start here
 
-**[Cut 5 — Ingestion with a human gate](../cut-05-menu-ingestion/)** · runnable.
+**[Cut 5 — Ingestion with a human gate](https://github.com/paakaer/cut-05-menu-ingestion)** · runnable.
 A photographed menu becomes structured, priced data; the model proposes and never
 publishes. Deterministic flags — missing or implausible price, per-kilo
 ambiguity, duplicate name — block publication until a person resolves them. No
@@ -14,34 +14,34 @@ system that made the error. Runs offline with no API key: 37 tests. It also
 documents the bug worth your time: a misconfigured credential silently escalated to
 the fallback and degraded output for weeks. Configuration errors now abort.
 
-**[Cut 10 — WhatsApp ordering agent](../cut-10-whatsapp-agent/)** · runnable.
+**[Cut 10 — WhatsApp ordering agent](https://github.com/paakaer/cut-10-whatsapp-agent)** · runnable.
 An agent that takes real orders by tool calling. Every price comes from the
 database, never the model; a quote is bound to the cart and must be accepted in a
 later message; allergies, complaints and loops go to a person. 88 tests run
 offline; behavioural evals against the live model check the database, not the
 wording.
 
-**[Cut 11 — Handwritten pages to data](../cut-11-document-pipeline/)** · runnable, Python.
+**[Cut 11 — Handwritten pages to data](https://github.com/paakaer/cut-11-document-pipeline)** · runnable, Python.
 A FastAPI service reads photographed order-book pages into typed records, and a
 React screen lets a person check and approve them. Accuracy and cost per page are
 measured on every model. The first eval found dish-list errors on every model. Reading
 them showed a missing input, not a weak model: given the shop's menu, Haiku reaches
 100% on the test set at €0.93 per 1,000 pages, a thirtieth of Opus's cost.
 
-**[Cut 7 — Observability](../cut-07-observability/)** — instrument against
+**[Cut 7 — Observability](https://github.com/paakaer/cut-07-observability)** — instrument against
 OpenTelemetry, not a vendor SDK, so changing where telemetry goes is an
 environment variable. Includes the alert rules that stayed green
 because they queried a metric nothing emitted.
 
-**[Cut 9 — Delivery](../cut-09-agentic-delivery/)** — where model output may go near
+**[Cut 9 — Delivery](https://github.com/paakaer/cut-09-agentic-delivery)** — where model output may go near
 a codebase and where it may not: a deterministic diff guard on auth, tenant
 isolation, payments and migrations; a human opens every pull request.
 
 ## Then
 
-**[Cut 6 — Entitlements](../cut-06-entitlements/)** · runnable — switch a feature on
+**[Cut 6 — Entitlements](https://github.com/paakaer/cut-06-entitlements)** · runnable — switch a feature on
 for one customer, and off again, without a deploy.
-**[Cut 4 — Infrastructure](../cut-04-selfhosted/)** · runnable — one host, eight
+**[Cut 4 — Infrastructure](https://github.com/paakaer/cut-04-selfhosted)** · runnable — one host, eight
 failure modes, seven silent.
 
 ## What it costs to run
@@ -53,8 +53,8 @@ not the ratio.
 
 ## The rest
 
-[Multi-tenant Postgres](../cut-01-multitenant/) · [Payments](../cut-02-payments/) ·
-[WhatsApp](../cut-03-whatsapp/) · [Consent law](../cut-08-italian-compliance/)
+[Multi-tenant Postgres](https://github.com/paakaer/cut-01-multitenant) · [Payments](https://github.com/paakaer/cut-02-payments) ·
+[WhatsApp](https://github.com/paakaer/cut-03-whatsapp) · [Consent law](https://github.com/paakaer/cut-08-italian-compliance)
 
 ## What a first engagement looks like
 

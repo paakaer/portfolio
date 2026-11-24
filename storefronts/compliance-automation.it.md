@@ -11,35 +11,35 @@ aggiungere dopo.
 
 ## Da qui
 
-**[Cut 8 — Consenso e diritto italiano](../cut-08-italian-compliance/README.it.md)**
+**[Cut 8 — Consenso e diritto italiano](https://github.com/paakaer/cut-08-italian-compliance/blob/main/README.it.md)**
 L'email commerciale a freddo verso un'azienda è illecita in Italia senza consenso
 preventivo: il legittimo interesse non basta. Articolo e provvedimenti del Garante
 sono citati, così il tuo legale ha qualcosa di preciso. Il modello: consenso per
 canale, un meccanismo che nomina un atto su una schermata precisa, il testo
 versionato, un soft opt-in calcolato all'invio anziché memorizzato.
 
-**[Cut 1 — Controllo degli accessi dimostrabile](../cut-01-multitenant/)** ·
+**[Cut 1 — Controllo degli accessi dimostrabile](https://github.com/paakaer/cut-01-multitenant)** ·
 eseguibile. Il confine sta in Postgres, non nel codice. Un test enumera ogni tabella
 di tenant e fa fallire la CI su una senza policy: "chi può leggere questo dato" è il
 risultato di un test, non un'affermazione.
 
-**[Cut 7 — Dove stanno le prove](../cut-07-observability/)** — i record di audit
+**[Cut 7 — Dove stanno le prove](https://github.com/paakaer/cut-07-observability)** — i record di audit
 vanno nel database, non presso un fornitore di telemetria: sopravvivono al piano
 gratuito e al cambio di fornitore.
 
 ## Poi
 
-**[Cut 6 — Abilitazioni](../cut-06-entitlements/)** · eseguibile — ogni interruttore
+**[Cut 6 — Abilitazioni](https://github.com/paakaer/cut-06-entitlements)** · eseguibile — ogni interruttore
 dichiara il file che lo legge; la fatturazione è solo registrazione.
-**[Cut 4 — Infrastruttura](../cut-04-selfhosted/)** · eseguibile — gli otto modi in
+**[Cut 4 — Infrastruttura](https://github.com/paakaer/cut-04-selfhosted)** · eseguibile — gli otto modi in
 cui si è rotta, e la prova di ripristino.
 
 ## Il resto
 
-[Pagamenti](../cut-02-payments/) ·
-[WhatsApp](../cut-03-whatsapp/README.it.md) ·
-[Estrazione AI](../cut-05-menu-ingestion/) ·
-[Consegna](../cut-09-agentic-delivery/)
+[Pagamenti](https://github.com/paakaer/cut-02-payments) ·
+[WhatsApp](https://github.com/paakaer/cut-03-whatsapp/blob/main/README.it.md) ·
+[Estrazione AI](https://github.com/paakaer/cut-05-menu-ingestion) ·
+[Consegna](https://github.com/paakaer/cut-09-agentic-delivery)
 
 La parte ripetitiva — raccogliere prove, spostare record, rincorrere ciò che scade —
 la automatizzo con n8n. È il modello qui sopra a decidere se valga qualcosa.

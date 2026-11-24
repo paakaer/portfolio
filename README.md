@@ -9,17 +9,17 @@ compliance automation or AI features running in production without an in-house t
 
 | # | Cut | |
 |---|-----|---|
-| 1 | [**Multi-tenant Postgres**](cut-01-multitenant/) | Shared-schema RLS, fail-closed — with a coverage test that fails CI if any tenant table lacks an isolation policy. |
-| 2 | [**Marketplace payments**](cut-02-payments/) | Stripe Connect direct charges when you cannot charge at checkout: authorise, hold, capture days later. |
-| 3 | [**WhatsApp Cloud API commerce**](cut-03-whatsapp/) | Tech Provider status, template approval, and the reconcile sweep for a catalogue that drifts asynchronously. |
-| 4 | [**Self-hosted infra runbook**](cut-04-selfhosted/) | Coolify + Hetzner + Traefik, plus eight production failure modes — seven of them silent. |
-| 5 | [**AI menu ingestion**](cut-05-menu-ingestion/) | A photographed paper menu becomes structured, priced, reviewable data — with a human gate before publish. |
-| 6 | [**Entitlements & feature gating**](cut-06-entitlements/) | Per-tenant flags a billing tier seeds but does not govern, and a test that no flag ships unread. |
-| 7 | [**Observability on Bun**](cut-07-observability/) | OpenTelemetry against a runtime that isn't Node, and the alerts that were green because they queried nothing. |
-| 8 | [**Italian compliance**](cut-08-italian-compliance/) | What an Italian business can lawfully send, to whom, and how to model consent so it survives an audit. |
-| 9 | [**Agentic delivery harness**](cut-09-agentic-delivery/) | How one person ships and operates the whole system: a milestone in, one reviewable branch out. |
-| 10 | [**WhatsApp ordering agent**](cut-10-whatsapp-agent/) | Claude takes orders over tools on the real commerce schema: it never prices anything, can't confirm for the customer, and hands off to a person. |
-| 11 | [**Handwritten pages to data**](cut-11-document-pipeline/) | Python, FastAPI and React: photographed order-book pages become checked records, with accuracy and cost per page measured for each model. |
+| 1 | [**Multi-tenant Postgres**](https://github.com/paakaer/cut-01-multitenant) | Shared-schema RLS, fail-closed — with a coverage test that fails CI if any tenant table lacks an isolation policy. |
+| 2 | [**Marketplace payments**](https://github.com/paakaer/cut-02-payments) | Stripe Connect direct charges when you cannot charge at checkout: authorise, hold, capture days later. |
+| 3 | [**WhatsApp Cloud API commerce**](https://github.com/paakaer/cut-03-whatsapp) | Tech Provider status, template approval, and the reconcile sweep for a catalogue that drifts asynchronously. |
+| 4 | [**Self-hosted infra runbook**](https://github.com/paakaer/cut-04-selfhosted) | Coolify + Hetzner + Traefik, plus eight production failure modes — seven of them silent. |
+| 5 | [**AI menu ingestion**](https://github.com/paakaer/cut-05-menu-ingestion) | A photographed paper menu becomes structured, priced, reviewable data — with a human gate before publish. |
+| 6 | [**Entitlements & feature gating**](https://github.com/paakaer/cut-06-entitlements) | Per-tenant flags a billing tier seeds but does not govern, and a test that no flag ships unread. |
+| 7 | [**Observability on Bun**](https://github.com/paakaer/cut-07-observability) | OpenTelemetry against a runtime that isn't Node, and the alerts that were green because they queried nothing. |
+| 8 | [**Italian compliance**](https://github.com/paakaer/cut-08-italian-compliance) | What an Italian business can lawfully send, to whom, and how to model consent so it survives an audit. |
+| 9 | [**Agentic delivery harness**](https://github.com/paakaer/cut-09-agentic-delivery) | How one person ships and operates the whole system: a milestone in, one reviewable branch out. |
+| 10 | [**WhatsApp ordering agent**](https://github.com/paakaer/cut-10-whatsapp-agent) | Claude takes orders over tools on the real commerce schema: it never prices anything, can't confirm for the customer, and hands off to a person. |
+| 11 | [**Handwritten pages to data**](https://github.com/paakaer/cut-11-document-pipeline) | Python, FastAPI and React: photographed order-book pages become checked records, with accuracy and cost per page measured for each model. |
 
 ## Start here, depending on who you are
 
